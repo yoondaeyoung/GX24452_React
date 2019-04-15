@@ -15,6 +15,14 @@ export const validate = (values) => {
   const errors = {};
 
   // TODO: Validate that the user has entered a username, first name, and last name
-
-  return errors;
+	if (!values.firstName) {
+	  errors.firstName = 'first name is required'
+	} 
+	if (!values.lastName) {
+	  errors.lastName = 'last nanme is equired'
+	} 
+	if (!values.userName) {
+	    errors.userName = 'user name is required'
+	}
+  	return errors;
 };

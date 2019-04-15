@@ -20,6 +20,7 @@ import WelcomeForm from 'components/WelcomeForm/WelcomeForm';
 import { CONTAINER_KEY } from '../constants';
 import saga from '../saga';
 import reducer from '../reducer';
+import { getLuckyNumber } from '../actions';
 
 class Welcome extends React.PureComponent {
   constructor(props) {
@@ -36,13 +37,16 @@ class Welcome extends React.PureComponent {
    */
   submit(values) {
     const { dispatch } = this.props;
+    
+
+    console.log("Welcome submit print out form values=> " + values)
 
     // TODO: Get the form values and invoke the service layer
-
-    dispatch(???);
+    dispatch(getLuckyNumber(values));
   }
 
   render() {
+    console.log(this.props)
     return (
       <article>
         <Helmet>
@@ -50,7 +54,7 @@ class Welcome extends React.PureComponent {
         </Helmet>
 
         <div className="mt5 pa4 center w-25 bg-light-gray">
-          <WelcomeForm onSubmit={???} />
+          <WelcomeForm onSubmit={values => this.submit(values)} />
         </div>
       </article>
     );
@@ -61,10 +65,20 @@ Welcome.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
+const mapStateToProps = () => ({
+  
+});
+
+
 // These are some handy functions provided by the boilerplate project
 // They take care of injecting the Saga and reducer
-const withConnect = connect();
+const withConnect = connect(mapStateToProps);
 const withSaga = injectSaga({ key: CONTAINER_KEY, saga });
 const withReducer = injectReducer({ key: CONTAINER_KEY, reducer });
+
+const mapDispatchToProps = {
+  getLuckyNumber
+};
+
 
 export default compose(withReducer, withSaga, withConnect)(Welcome);

@@ -9,26 +9,36 @@
  * @see https://decembersoft.com/posts/changing-react-route-programmatically-with-redux-saga/
  */
 
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest, takeEvery } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
 import request from 'utils/request';
 
 import { DISPATCH_ACTIONS } from './constants';
+import { getLuckyNumberSuccess } from './actions';
 
 export function* getLuckyNumber({ username }) {
+  console.log('1. saga', username)
+
   // TODO: What port is the service layer running on again?
-  const requestUrl = 'http://localhost:???/lucky-number';
+  const requestUrl = 'http://localhost:3000/lucky-number';
 
+  console.log("2. request", request);
+
+  const result = yield call(request, requestUrl);
   try {
-    const result = yield call(request, requestUrl);
-
+  
     // TODO: Do stuff with the result
+    console.log('3. result ', result);
+    yield put(getLuckyNumberSuccess(result));
   } catch (err) {
     // TODO: Bonus points for some error handling
   }
 }
 
+
 export default function* sagaFunction() {
-  yield takeLatest(DISPATCH_ACTIONS.GET_LUCKY_NUMBER, getLuckyNumber);
+  yield all ([
+    takeEvery(DISPATCH_ACTIONS.GET_LUCKY_NUMBER, getLuckyNumber)   
+    ]);
 }

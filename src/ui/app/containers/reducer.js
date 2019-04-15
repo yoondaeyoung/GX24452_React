@@ -11,13 +11,21 @@ import { DISPATCH_ACTIONS } from './constants';
 
 // TODO: Initialize more things in the Redux store if needed
 const initialState = fromJS({
-  luckyNumber: -1
+  luckyNumber: -1,
+  userName: "",
+  loading: true
 });
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case ???:
+    case "DISPATCH_ACTIONS.GET_LUCKY_NUMBER":
       // TODO: Set things in the Redux store
+      console.log("reducer get username >> " + action.userName);
+      return state.set("loading", true);
+    case "DISPATCH_ACTIONS.GET_LUCKY_NUMBER_SUCCESS":
+      // TODO: Set things in the Redux store
+      console.log("reducer get luckyNumber >> " + action.luckyNumber);
+      return state.set("loading", false).set("luckyNumber", action.luckyNumber);
     default:
       return state;
   }

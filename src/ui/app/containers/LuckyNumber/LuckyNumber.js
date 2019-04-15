@@ -10,9 +10,12 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import { CONTAINER_KEY } from '../constants';
+import { getLuckyNumber } from '../actions';
+import { reducer } from '../reducer';
 
 class LuckyNumber extends React.PureComponent {
   render() {
+    //return <div>test</div>
     return (
       <article>
         <Helmet>
@@ -27,6 +30,7 @@ class LuckyNumber extends React.PureComponent {
 
 const mapStateToProps = () => ({
   // TODO: Get values from Redux store
+  reducer: state.luckyNumber
 });
 
-export default connect()(LuckyNumber);
+export default connect(mapStateToProps)(LuckyNumber);
