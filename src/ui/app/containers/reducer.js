@@ -18,14 +18,18 @@ const initialState = fromJS({
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case "DISPATCH_ACTIONS.GET_LUCKY_NUMBER":
+    case DISPATCH_ACTIONS.GET_LUCKY_NUMBER:
       // TODO: Set things in the Redux store
-      console.log("reducer get username >> " + action.userName);
-      return state.set("loading", true);
-    case "DISPATCH_ACTIONS.GET_LUCKY_NUMBER_SUCCESS":
+      console.log("reducer get username >> ",  action.userName);
+      return { userName: action.UserName }
+    
+    case DISPATCH_ACTIONS.GET_LUCKY_NUMBER_SUCCESS:
       // TODO: Set things in the Redux store
-      console.log("reducer get luckyNumber >> " + action.luckyNumber);
-      return state.set("loading", false).set("luckyNumber", action.luckyNumber);
+      console.log("reducer get luckyNumber >> ",  action.luckyNumber);
+      return {
+              luckyNumber: action.luckyNumber,
+              userName: action.userName
+            }
     default:
       return state;
   }

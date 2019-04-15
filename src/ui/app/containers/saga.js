@@ -17,11 +17,11 @@ import request from 'utils/request';
 import { DISPATCH_ACTIONS } from './constants';
 import { getLuckyNumberSuccess } from './actions';
 
-export function* getLuckyNumber({ username }) {
-  console.log('1. saga', username)
+export function* getLuckyNumber({userName}) {
+  console.log('1. saga', userName);
 
   // TODO: What port is the service layer running on again?
-  const requestUrl = 'http://localhost:3000/lucky-number';
+  const requestUrl = 'http://localhost:1337/lucky-number?username=' + userName;
 
   console.log("2. request", request);
 
@@ -29,11 +29,18 @@ export function* getLuckyNumber({ username }) {
   try {
   
     // TODO: Do stuff with the result
-    console.log('3. result ', result);
-    yield put(getLuckyNumberSuccess(result));
+    console.log('3. result ', result.luckyNumber);
+    // so api returns luckyNumber so time to dispatch action to Redux to update state
+    yield put(getLuckyNumberSuccess(result.luckyNumber, userName));
+
+
   } catch (err) {
     // TODO: Bonus points for some error handling
   }
+
+  // This is the way Sagas is handling routing to another page
+  // lucky page in where username and returned luckynumber is displayed..
+  yield put(push("/lucky"));
 }
 
 

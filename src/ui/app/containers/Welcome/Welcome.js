@@ -38,11 +38,11 @@ class Welcome extends React.PureComponent {
   submit(values) {
     const { dispatch } = this.props;
     
-
-    console.log("Welcome submit print out form values=> " + values)
+    // remember immutable js has map. use get() to extract value of key 
+    console.log("Welcome submit print out form values=> ", values.get("userName"));
 
     // TODO: Get the form values and invoke the service layer
-    dispatch(getLuckyNumber(values));
+    dispatch(getLuckyNumber(values.get("userName")));
   }
 
   render() {

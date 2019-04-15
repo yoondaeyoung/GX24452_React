@@ -6,20 +6,21 @@
 
 import { DISPATCH_ACTIONS } from './constants';
 
-export function getLuckyNumber(username) {
-  console.log("lucky number aciton payload =>",  username);
+export function getLuckyNumber(userName) {
+  console.log("lucky number aciton payload =>",  userName);
   return {
     type: DISPATCH_ACTIONS.GET_LUCKY_NUMBER,
-    username
+    userName
   };
 }
 
 // TODO: Add more actions if needed
-export function getLuckyNumberSuccess(response) {
-  console.log("lucky number success response =>", response);
+export function getLuckyNumberSuccess(luckyNumber,userName) {
+  console.log("lucky number success response for username =>" + userName + ", luckcyNumber=" +  luckyNumber);
   return {
     type: DISPATCH_ACTIONS.GET_LUCKY_NUMBER_SUCCESS,
-    response
+    luckyNumber,
+    userName
   };
 }
 

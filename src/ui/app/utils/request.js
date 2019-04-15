@@ -11,8 +11,8 @@ function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  console.log("truth of response html? or json? >> ", response);
-  return response;
+
+  return response.json();
 }
 
 /**
